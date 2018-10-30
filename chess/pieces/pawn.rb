@@ -8,6 +8,7 @@ class Pawn < Piece
   
   def moves
     steps + attacks
+    # debugger
   end
   
   def forward_move
@@ -30,6 +31,14 @@ class Pawn < Piece
   end
   
   def attacks
-    
+    attack_pos = []
+    row, col = pos
+    [-1, 1].each do |j|
+      # debugger
+      diagonal = [row + forward_move, col + j]
+      next unless board.valid_pos?(diagonal) && !board.empty?(diagonal)
+      attack_pos << diagonal unless board[diagonal].color == color
+    end
+    attack_pos
   end
 end
