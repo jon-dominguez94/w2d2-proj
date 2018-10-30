@@ -1,6 +1,7 @@
 require_relative 'piece'
 
 class Board
+  attr_reader :grid
   
   def initialize
     @grid = Array.new(8) {Array.new(8) }  
@@ -37,22 +38,22 @@ class Board
       end
       puts output 
       puts "----" * 8
-    end
-      
+    end  
   end
   
-  private
-  attr_reader :grid
-  
   def [](pos)
+    raise 'Invalid pos' unless valid_pos?(pos)
     row, col = pos
     grid[row][col]
   end
   
   def []=(pos, val)
+    raise 'Invalid pos' unless valid_pos?(pos)
     row,col = pos
-    grid[row][col] = val
+    @grid[row][col] = val
   end
+  
+  private
   
   def populate
     grid.each_with_index do |row, i|
