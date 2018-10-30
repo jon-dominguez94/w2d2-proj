@@ -2,26 +2,22 @@ require 'byebug'
 
 module SlidingPiece
   
-  HORIZONTALS = [
-    [0,  1],
-    [1,  0],
-    [0, -1],
-    [-1, 0]
-  ]
-  
-  DIAGONALS = [
-    [-1,-1],
-    [-1, 1],
-    [1,  1],
-    [1, -1],
-  ]
-  
   def horizontals
-    HORIZONTALS
+    [
+      [0,  1],
+      [1,  0],
+      [0, -1],
+      [-1, 0]
+    ]
   end
   
   def diagonals
-    DIAGONALS
+    [
+      [-1,-1],
+      [-1, 1],
+      [1,  1],
+      [1, -1],
+    ]
   end
   
   def moves

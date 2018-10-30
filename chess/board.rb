@@ -11,20 +11,23 @@ class Board
   def inspect
   end
   
+  def empty?(pos)
+    self[pos].empty?
+  end
+  
   def move_piece(start_pos, end_pos)
-    raise ArgumentError, "No piece at this pos!" if self[start_pos].empty?
-    raise ArgumentError, "Space is taken!" unless self[end_pos].empty?
+    raise ArgumentError, "No piece at this pos!" if empty?(start_pos)
+    raise "Piece cannot move there" unless piece.moves.include?(end_pos)
     piece = self[start_pos] 
-    self[end_pos] = piece
-    self[start_pos] = NullPiece.instance
+    move_piece!(start_pos, end_pos)
   end
   
   def move_piece!(start_pos, end_pos)
     piece = self[start_pos]
-    raise "Piece cannot move there" unless piece.moves.include?(end_pos)
     self[end_pos] = piece
     self[start_pos] = NullPiece.instance
     piece.pos = end_pos
+    nil
   end
   
   def valid_pos?(pos)
@@ -52,7 +55,7 @@ class Board
       row.each_index do |j|
         pos = [i,j]
         if [0, 1, 6, 7].include?(i)
-          self[pos] = Queen.new(pos, self, :black)
+          self[pos] = Rook.new(pos, self, :black)
         else
           self[pos] = NullPiece.instance
         end
