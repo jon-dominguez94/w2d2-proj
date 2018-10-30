@@ -15,7 +15,7 @@ class Board
     self[start_pos] = nil
   end
   
-  def self.valid_pos?(pos)
+  def valid_pos?(pos)
     row,col = pos
     row.between?(0, 7) && col.between?(0, 7)
   end
