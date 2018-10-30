@@ -8,10 +8,11 @@ module SteppingPiece
       new_pos = [x + dx, y + dy]
       
       next unless board.valid_pos?(new_pos)
-      if board.empty?(new_pos)
-        valid_moves << new_pos
+      # if board.empty?(new_pos)
+      if board[new_pos].is_a?(NullPiece)
+        possible_moves << new_pos
       elsif board[new_pos].color != color
-        valid_moves << new_pos
+        possible_moves << new_pos
       end
     end
     possible_moves

@@ -8,6 +8,10 @@ class King < Piece
     '♛'.colorize(color)
   end
   
+  def inspect
+    symbol
+  end
+  
   def move_dirs
     [
       [-1,-1],
