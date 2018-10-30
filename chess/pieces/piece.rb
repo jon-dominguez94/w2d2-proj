@@ -26,6 +26,4 @@ class Piece
     moves
   end
   
-  def moves
-  end
 end
