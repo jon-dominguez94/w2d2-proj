@@ -14,7 +14,14 @@ module SlidingPiece
     [1, -1],
   ]
   
-  def 
+  def horizontals
+    HORIZONTALS
+  end
+  
+  def diagonals
+    DIAGONALS
+  end
+  
   def moves
     possible_moves = []
     move_dirs.each do |move|
