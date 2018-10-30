@@ -50,20 +50,19 @@ class Board
   private
   
   def populate
-    
-    # grid.each_with_index do |row, i|
-    #   row.each_index do |j|
-    #     pos = [i,j]
-    #     if [0, 1, 6, 7].include?(i)
-    #       self[pos] = Knight.new(pos, self, :black)
-    #     else
-    #       self[pos] = NullPiece.instance
-    #     end
-    #   end
-    # end
-    # nil #return nil bc we don't want to return grid for user to see
+    place_null_pieces
     [:black, :white].each do |color|
       place_non_pawns(color)
+      place_pawns(color)
+    end
+    nil
+  end
+  
+  def place_pawns(color)
+    i = color == :white ? 6 : 1
+    (0..7).each do |j|
+      place_pos = [i,j]
+      self[place_pos] = Pawn.new(place_pos, self, color)
     end
   end
   
@@ -75,4 +74,23 @@ class Board
       self[place_pos] = piece.new(place_pos, self, color)
     end
   end 
+  
+  def place_null_pieces
+    grid.each_with_index do |row, i|
+      next if [0, 1, 6, 7].include?(i)
+      row.each_index do |j|
+        pos = [i,j]
+        self[pos] = NullPiece.instance
+      end
+    end
+  end
 end
+
+
+
+
+
+
+
+
+
