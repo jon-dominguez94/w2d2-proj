@@ -1,7 +1,4 @@
-# require_relative 'pieces'
-require_relative 'pieces/pawn'
-require_relative 'pieces/null'
-require_relative 'pieces/king'
+require_relative 'pieces'
 
 class Board
   attr_reader :grid
@@ -11,12 +8,15 @@ class Board
     populate
   end
   
+  def inspect
+  end
+  
   def move_piece(start_pos, end_pos)
-    raise ArgumentError, "No piece at this pos!" if self[start_pos].nil?
-    raise ArgumentError, "Space is taken!" unless self[end_pos].nil?
-    start_piece = self[start_pos] 
-    self[end_pos] = start_piece
-    self[start_pos] = nil
+    raise ArgumentError, "No piece at this pos!" if self[start_pos].empty?
+    raise ArgumentError, "Space is taken!" unless self[end_pos].empty?
+    piece = self[start_pos] 
+    self[end_pos] = piece
+    self[start_pos] = NullPiece.instance
   end
   
   def move_piece!(start_pos, end_pos)

@@ -10,10 +10,6 @@ class Piece
     " #{symbol} "
   end
   
-  def inspect
-    " #{symbol} "
-  end
-  
   def empty?
     false
   end

@@ -1,4 +1,4 @@
-module SteppingPiece
+module SlidingPiece
   
   def moves
     possible_moves = []
@@ -8,8 +8,8 @@ module SteppingPiece
       new_pos = [x + dx, y + dy]
       
       next unless board.valid_pos?(new_pos)
-      if board[new_pos].empty?
-      # if board[new_pos].is_a?(NullPiece)
+      # if board.empty?(new_pos)
+      if board[new_pos].is_a?(NullPiece)
         possible_moves << new_pos
       elsif board[new_pos].color != color
         possible_moves << new_pos
@@ -18,8 +18,6 @@ module SteppingPiece
     possible_moves
   end
 
-  private 
-  
   def move_dirs
     raise NotImplementedError
   end

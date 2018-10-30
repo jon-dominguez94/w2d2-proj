@@ -27,6 +27,7 @@ class Display
       row_output(row,i)
     end
     rows.each {|row| puts row.join}
+    nil
   end
   
   def row_output(row,i)
