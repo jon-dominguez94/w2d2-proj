@@ -8,26 +8,8 @@ class Board
     populate
   end
   
-  def inspect
-  end
-  
   def empty?(pos)
     self[pos].empty?
-  end
-  
-  def move_piece(start_pos, end_pos)
-    raise ArgumentError, "No piece at this pos!" if empty?(start_pos)
-    piece = self[start_pos] 
-    raise "Piece cannot move there" unless piece.moves.include?(end_pos)
-    move_piece!(start_pos, end_pos)
-  end
-  
-  def move_piece!(start_pos, end_pos)
-    piece = self[start_pos]
-    self[end_pos] = piece
-    self[start_pos] = NullPiece.instance
-    piece.pos = end_pos
-    nil
   end
   
   def valid_pos?(pos)
@@ -45,6 +27,25 @@ class Board
     raise 'Invalid pos' unless valid_pos?(pos)
     row,col = pos
     @grid[row][col] = val
+  end
+  
+  def move_piece(start_pos, end_pos)
+    raise ArgumentError, "No piece at this pos!" if empty?(start_pos)
+    piece = self[start_pos] 
+    raise "Piece cannot move there" unless piece.moves.include?(end_pos)
+    move_piece!(start_pos, end_pos)
+  end
+  
+  def move_piece!(start_pos, end_pos)
+    piece = self[start_pos]
+    self[end_pos] = piece
+    self[start_pos] = NullPiece.instance
+    piece.pos = end_pos
+    nil
+  end
+  
+  def dup
+    
   end
   
   private
@@ -83,6 +84,9 @@ class Board
         self[pos] = NullPiece.instance
       end
     end
+  end
+  
+  def inspect
   end
 end
 
