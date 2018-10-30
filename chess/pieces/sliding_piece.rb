@@ -1,3 +1,5 @@
+require 'byebug'
+
 module SlidingPiece
   
   HORIZONTALS = [
@@ -25,22 +27,33 @@ module SlidingPiece
   def moves
     possible_moves = []
     move_dirs.each do |move|
-      x,y = pos
-      dx, dy = move
-      new_pos = [x + dx, y + dy]
-      
-      next unless board.valid_pos?(new_pos)
-      # if board.empty?(new_pos)
-      if board[new_pos].is_a?(NullPiece)
-        possible_moves << new_pos
-      elsif board[new_pos].color != color
-        possible_moves << new_pos
-      end
+      possible_moves += get_all_moves(move)
     end
     possible_moves
   end
+  
+  private
 
   def move_dirs
     raise NotImplementedError
   end
+  
+  def get_all_moves(move)
+    possible_moves = []
+    new_pos = pos
+    loop do
+      x, y = new_pos
+      dx, dy = move
+      new_pos = [x + dx, y + dy]
+      break unless board.valid_pos?(new_pos)
+      if board[new_pos].empty?
+        possible_moves << new_pos
+      else
+        possible_moves << new_pos if board[new_pos].color != color
+        break
+      end
+    end
+    possible_moves
+  end
+    
 end

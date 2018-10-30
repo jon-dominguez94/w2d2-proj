@@ -52,7 +52,7 @@ class Board
       row.each_index do |j|
         pos = [i,j]
         if [0, 1, 6, 7].include?(i)
-          self[pos] = King.new(pos, self, :black)
+          self[pos] = Queen.new(pos, self, :black)
         else
           self[pos] = NullPiece.instance
         end
