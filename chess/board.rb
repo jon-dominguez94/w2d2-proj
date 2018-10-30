@@ -21,26 +21,6 @@ class Board
     row.between?(0, 7) && col.between?(0, 7)
   end
   
-  def render(position)
-    grid.each_with_index do |row, i|
-      output = "|"
-      row.each_index do |j|
-        pos = [i, j]
-        if self[pos].nil?
-          temp = "   \|"
-          temp = temp.bg_red if pos == position # highlight if current_pos == cursor_pos
-          output += temp
-        else
-          temp =  " #{self[pos].value} \|"
-          temp = temp.bg_red if pos == position # highlight if current_pos == cursor_pos
-          output += temp
-        end
-      end
-      puts output 
-      puts "----" * 8
-    end  
-  end
-  
   def [](pos)
     raise 'Invalid pos' unless valid_pos?(pos)
     row, col = pos
