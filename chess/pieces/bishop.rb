@@ -1,16 +1,16 @@
 require_relative 'piece'
 require_relative 'sliding_piece'
 
-class Queen < Piece
+class Bishop < Piece
   include SlidingPiece
   
   def symbol
-    '♔'.colorize(color)
+    '♗'.colorize(color)
   end
   
   protected
   
   def move_dirs
-    horizontals + diagonals
+    diagonals
   end
 end

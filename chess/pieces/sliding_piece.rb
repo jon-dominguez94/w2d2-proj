@@ -1,5 +1,20 @@
 module SlidingPiece
   
+  HORIZONTALS = [
+    [0,  1],
+    [1,  0],
+    [0, -1],
+    [-1, 0]
+  ]
+  
+  DIAGONALS = [
+    [-1,-1],
+    [-1, 1],
+    [1,  1],
+    [1, -1],
+  ]
+  
+  def 
   def moves
     possible_moves = []
     move_dirs.each do |move|
