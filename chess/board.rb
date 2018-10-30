@@ -1,4 +1,6 @@
-require_relative 'piece'
+require_relative 'pieces/pawn'
+require_relative 'pieces/null'
+require_relative 'pieces/king'
 
 class Board
   attr_reader :grid
@@ -6,6 +8,9 @@ class Board
   def initialize
     @grid = Array.new(8) {Array.new(8) }  
     populate
+  end
+  
+  def inspect
   end
   
   def move_piece(start_pos, end_pos)
@@ -36,11 +41,14 @@ class Board
   private
   
   def populate
+    
     grid.each_with_index do |row, i|
-      if [0, 1, 6, 7].include?(i)
-        row.each_index do |j|
-          pos = [i,j]
-          self[pos] = Piece.new("P")
+      row.each_index do |j|
+        pos = [i,j]
+        if [0, 1, 6, 7].include?(i)
+          self[pos] = King.new(pos, self, :black)
+        else
+          self[pos] = NullPiece.instance
         end
       end
     end

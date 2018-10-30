@@ -11,6 +11,9 @@ class Display
     @board = board
   end
   
+  def inspect
+  end
+  
   def play
     loop do
       render
@@ -20,24 +23,22 @@ class Display
   
   def render
     puts %x{clear}
-    grid = board.grid.map.with_index do |row, i|
+    rows = board.grid.map.with_index do |row, i|
       row_output(row,i)
     end
-    grid.each {|row| puts row.join}
+    rows.each {|row| puts row.join}
   end
   
   def row_output(row,i)
     row.map.with_index do |piece, j|
-      color_options = colors_for(i, j)
-      piece.to_s.colorize(color_options)
+      bg_color = get_bg_color(i, j)
+      piece.to_s.colorize(bg_color)
     end
   end
   
-  def colors_for(i, j)
-    if cursor.cursor_pos == [i,j] && cursor.selected
-      bg = :light_green
-    elsif cursor.cursor_pos == [i, j]
-      bg = :light_red
+  def get_bg_color(i, j)
+    if cursor.cursor_pos == [i,j]
+      cursor.selected ? bg = :light_green : bg = :light_red
     elsif (i + j).odd?
       bg = :light_cyan
     else
