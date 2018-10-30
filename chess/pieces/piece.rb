@@ -1,6 +1,6 @@
 class Piece
-  attr_reader :value, :color
-  attr_accessor :board
+  attr_reader :board, :color
+  attr_accessor :pos
   
   def initialize(pos, board, color)
     @pos, @board, @color = pos, board, color
@@ -10,12 +10,20 @@ class Piece
     " #{symbol} "
   end
   
+  def inspect
+    " #{symbol} "
+  end
+  
   def empty?
     false
   end
   
   def symbol
     raise NotImplementedError
+  end
+  
+  def valid_moves
+    moves
   end
   
   def moves
