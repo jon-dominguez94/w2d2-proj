@@ -45,22 +45,26 @@ class Board
   end
   
   def find_king(color)
-    king = taken_pos.find {|piece| piece.color == color && piece.is_a?(King)}
+    king = live_pieces.find {|piece| piece.color == color && piece.is_a?(King)}
     raise "No King!" unless king
     king
   end
   
   def in_check?(color)
     kings_pos = find_king(color).pos
-    taken_pos.any? do |piece|
+    live_pieces.any? do |piece|
       p.color != color && p.moves.include?(kings_pos)
     end
   end
   
   def checkmate?(color)
+    return false unless in_check?(color)
+    live_pieces.select { |piece| piece.color == color }.all? do |p|
+      p.valid_moves.empty?
+    end
   end
   
-  def taken_pos
+  def live_pieces
     grid.flatten.reject {|piece| piece.empty?}
   end
   
