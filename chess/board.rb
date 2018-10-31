@@ -3,9 +3,9 @@ require_relative 'pieces'
 class Board
   attr_reader :grid
   
-  def initialize
+  def initialize(confirmation)
     @grid = Array.new(8) {Array.new(8) }  
-    populate
+    populate(confirmation)
   end
   
   def empty?(pos)
@@ -45,12 +45,25 @@ class Board
   end
   
   def dup
-    
+    duped_board = Board.new(false)
+    grid.each_with_index do |row, i|
+      row.each_index do |j|
+        pos = [i, j]
+        og_piece = self[pos]
+        if og_piece.is_a?(NullPiece)
+          duped_board[pos] = NullPiece.instance
+        else
+          duped_board[pos] = og_piece.class.new(pos, duped_board, og_piece.color)
+        end
+      end
+    end
+    duped_board
   end
   
   private
   
-  def populate
+  def populate(confirmation)
+    return unless confirmation
     place_null_pieces
     [:black, :white].each do |color|
       place_non_pawns(color)
