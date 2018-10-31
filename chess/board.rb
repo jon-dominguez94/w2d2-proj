@@ -44,6 +44,26 @@ class Board
     nil
   end
   
+  def find_king(color)
+    king = taken_pos.find {|piece| piece.color == color && piece.is_a?(King)}
+    raise "No King!" unless king
+    king
+  end
+  
+  def in_check?(color)
+    kings_pos = find_king(color).pos
+    taken_pos.any? do |piece|
+      p.color != color && p.moves.include?(kings_pos)
+    end
+  end
+  
+  def checkmate?(color)
+  end
+  
+  def taken_pos
+    grid.flatten.reject {|piece| piece.empty?}
+  end
+  
   def dup
     duped_board = Board.new(false)
     grid.each_with_index do |row, i|
